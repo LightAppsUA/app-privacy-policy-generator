@@ -22,7 +22,7 @@ var thirdPartyServicesJsonArray = [
   {
     "name": "Google Play Services",
     "model": "gps",
-    "gps": true,
+    "gps": false,
     "logo": "images/third_party_logos/gps.png",
     "link": {
       "privacy": "https://www.google.com/policies/privacy/",
@@ -162,7 +162,7 @@ var thirdPartyServicesJsonArray = [
   {
     "name": "One Signal",
     "model": "onesignal",
-    "onesignal": false,
+    "onesignal": true,
     "logo": "images/third_party_logos/one_signal.png",
     "link": {
       "privacy": "https://onesignal.com/privacy_policy",
@@ -290,7 +290,7 @@ var thirdPartyServicesJsonArray = [
   {
     "name": "RevenueCat",
     "model": "revenuecat",
-    "revenuecat": false,
+    "revenuecat": true,
     "logo": "images/third_party_logos/revenuecat.png",
     "link": {
       "privacy": "https://www.revenuecat.com/privacy",

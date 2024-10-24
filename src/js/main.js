@@ -22,7 +22,7 @@ var app = new Vue({
 	el: "#app",
 	data: {
 		iOrWe: "[I/We]",
-		typeOfApp: "Free",
+		typeOfApp: "Freemium",
 		typeOfAppTxt: "[open source/free/freemium/ad-supported/commercial]",
 		typeOfDev: "Individual",
 		appName: "",
@@ -33,7 +33,7 @@ var app = new Vue({
 		pidInfoIn: "",
 		pidInfo:
 			"[add whatever else you collect here, e.g. users name, address, location, pictures]",
-		osType: "Android",
+		osType: "iOS",
 		effectiveFromDate: new Date().toISOString().slice(0, 10),
 		requirementOfSystem: "system",
 		thirdPartyServices: thirdPartyServicesJsonArray,
@@ -114,6 +114,38 @@ var app = new Vue({
 			let rawHTML = getRawHTML(content, title)
 			this.contentRenderType = 2
 			loadInTextView(target, rawHTML)
+		},
+		downloadHtml: function (id) {
+			let content = getContent(id)
+			let title = getTitle(id)
+			let rawHTML = getRawHTML(content, title)
+
+			// Clean up appName by removing spaces and special characters
+			let cleanAppName = this.appName.replace(/[^a-zA-Z0-9]/g, '')
+
+			// Determine file suffix based on title content
+			let fileSuffix
+			if (title.toLowerCase().includes("privacy")) {
+				fileSuffix = "_PrivacyPolicy.html"
+			} else if (title.toLowerCase().includes("terms")) {
+				fileSuffix = "_TermsOfUse.html"
+			} else {
+				fileSuffix = "_Document.html" // Default case if neither "privacy" nor "terms"
+			}
+
+			// Create a Blob from the HTML content
+			let blob = new Blob([rawHTML], { type: "text/html" })
+
+			// Create a temporary link element for downloading
+			let downloadLink = document.createElement("a")
+			downloadLink.href = URL.createObjectURL(blob)
+			downloadLink.download = cleanAppName + fileSuffix // Use the appropriate file name suffix
+
+			// Simulate a click on the link to trigger the download
+			downloadLink.click()
+
+			// Clean up the object URL
+			URL.revokeObjectURL(downloadLink.href)
 		},
 		getMarkdown: function (id, target) {
 			let content = getContent(id)
